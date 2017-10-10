@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css3图片墙效果</title>
+	<style type="text/css">
+		body {
+			background: #eee;
+		}
+		h1 {
+			text-align: center;
+		}
+
+		.container {
+			position: relative;
+			width: 960px;
+			min-height: 700px;
+			margin: 20px auto;
+		}
+		img {
+			position: absolute;
+			top: 50px;
+			left: 200px;
+			padding: 10px 10px 15px;
+			border: 1px solid #ddd;
+			background: #fff;
+			transform: rotate(20deg);
+			transition: transform 1s;
+			z-index: 1;
+		}
+		img:hover {
+			transform: rotate(0);
+			transform: scale(1.2);
+			box-shadow: 10px 10px 15px #ccc;
+		}
+	</style>
+</head>
+<body>
+	<script
+	  src="http://code.jquery.com/jquery-3.2.1.js"
+	  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+	  crossorigin="anonymous"></script>
+	<h1>图片墙的制作</h1>
+	<div class="container">
+		<img src="images/mm1.jpg" alt="">
+		<img src="images/mm2.jpg" alt="">
+		<img src="images/mm3.jpg" alt="">
+		<img src="images/mm4.jpg" alt="">
+		<img src="images/mm5.jpg" alt="">
+		<img src="images/mm6.jpg" alt="">
+		<img src="images/mm7.jpg" alt="">
+		<img src="images/mm8.jpg" alt="">
+		<img src="images/mm9.jpg" alt="">
+		<img src="images/mm7.jpg" alt="">
+		<img src="images/mm3.jpg" alt="">
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			var page = {
+				currRotate: '',
+				init: function () {
+					this.setPosition();
+				},
+				setPosition: function () {
+					var _this = this;
+					$('img').each(function(n) {
+						var a = Math.floor(n / 3);
+						var b = (n % 3) + 1;
+						$(this).css({
+							top: (a * _this.random(400) + b * _this.random(40)) + 'px',
+							left: (b *_this.random(200)) + 'px',
+							transform: 'rotate(' + _this.random(70) + 'deg)'
+						})
+
+					}).mouseover(function() {
+						console.log($(this)[0].style.transform);
+						this.currRotate = $(this)[0].style.transform;
+						$(this).css({
+							transform: 'rotate(0deg)',
+							zIndex: 999
+						})
+					}).mouseout(function () {
+						$(this).css({
+							transform: _this.currRotate,
+							zIndex: 1
+						})
+					})
+				},
+				random: function (x) {
+					return Math.random() * x 
+				}
+			}
+			page.init();
+		})
+		
+	</script>
+</body>
+</html>
